@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Html - Clipboard</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
+        crossorigin="anonymous">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.2/html5shiv.min.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+</head>
+
+<body>
+    <row>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="text-align: center;">
+            <h1 class="text-center">Clipboard</h1>
+
+            <textarea name="copyArea" id="copyArea" cols="30" rows="10" placeholder="Place your text here..." style="background-color: #f3f3f3; padding: 1em; border: 1px #333 dashed;"></textarea>
+
+            <p>Click on the button bellow to copy your data to your clipboard:</p>
+            <button id="btnClipboard" class="btn btn-default">Copy to Clipboard</button>
+        </div>
+    </row>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <!-- Bootstrap JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!-- Clipboard -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
+
+    <!-- Custom scripts -->
+    <script type="text/javascript">
+        $('#btnClipboard').click(function () {
+            console.log('Copying to clipboard...');
+
+            var clipboard = new Clipboard('#copyArea');
+
+            clipboard.on('success', function (e) {
+                console.info('Action:', e.action);
+                console.info('Text:', e.text);
+                console.info('Trigger:', e.trigger);
+
+                e.clearSelection();
+            });
+
+            clipboard.on('error', function (e) {
+                console.error('Action:', e.action);
+                console.error('Trigger:', e.trigger);
+            });
+        });
+
+        function clearSelection() {
+            if (document.selection) {
+                document.selection.empty();
+            } else if (window.getSelection) {
+                window.getSelection().removeAllRanges();
+            }
+        }
+    </script>
+</body>
